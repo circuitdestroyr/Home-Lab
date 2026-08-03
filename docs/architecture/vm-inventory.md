@@ -10,7 +10,7 @@ This document tracks all virtual machines in the Cyber Enterprise Lab, including
 
 | Hostname | Purpose | Operating System | IP Address | Status |
 |---|---|---|---|---|
-| DC01 | Active Directory Domain Controller / DNS Server | Windows Server | TBD | Operational |
+| DC01 | Active Directory Domain Controller / DNS Server | Microsoft Windows Server 2022 Standard Evaluation | 192.168.15.10 | Operational |
 
 ---
 
