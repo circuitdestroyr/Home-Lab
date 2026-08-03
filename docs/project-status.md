@@ -10,34 +10,39 @@ Phase 1 – Core Infrastructure
 
 ## Current Objective
 
-Promote DC01 to an Active Directory Domain Controller.
+Build the foundation of the enterprise environment and prepare DC01 for Active Directory deployment.
 
 ## Completed
 
 - [x] GitHub repository created
 - [x] Initial README created
+- [x] Project documentation structure created
 - [x] DC01 virtual machine created
 
 ## In Progress
 
-- [ ] Configure static IP
+- [ ] Configure DC01 network settings
+- [ ] Assign static IP address
 - [ ] Install Active Directory Domain Services
-- [ ] Promote DC01
+- [ ] Promote DC01 to Domain Controller
 - [ ] Configure DNS
 
 ## Upcoming
 
-- CLIENT01
-- Splunk Enterprise
-- Sysmon
-- FortiGate
-- Juniper
-- Ubuntu Server
+- CLIENT01 Windows workstation
+- Splunk Enterprise deployment
+- Sysmon deployment
+- FortiGate firewall
+- Juniper networking
+- Linux servers
+- Cybersecurity attack scenarios
+- Detection engineering
+- Incident response investigations
 
 ## Blockers
 
 None
 
-## Notes
+## Last Updated
 
-This repository serves as the source of truth for the Cyber Enterprise Lab project.
+2026-08-03
