@@ -18,14 +18,19 @@ Build the foundation of the enterprise environment and prepare DC01 for Active D
 - [x] Initial README created
 - [x] Project documentation structure created
 - [x] DC01 virtual machine created
+- [x] DC01 operating system installed
+- [x] DC01 network configuration completed
+- [x] Static IP assigned
+- [x] Active Directory Domain Services installed
+- [x] DC01 promoted to Domain Controller
+- [x] DNS configured
 
 ## In Progress
 
-- [ ] Configure DC01 network settings
-- [ ] Assign static IP address
-- [ ] Install Active Directory Domain Services
-- [ ] Promote DC01 to Domain Controller
-- [ ] Configure DNS
+- [ ] Document DC01 configuration
+- [ ] Create VM inventory documentation
+- [ ] Create IP addressing plan
+- [ ] Build CLIENT01 workstation
 
 ## Upcoming
 
