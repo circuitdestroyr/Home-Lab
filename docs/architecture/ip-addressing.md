@@ -14,15 +14,18 @@ The goal is to maintain a realistic small business enterprise network design whi
 
 | Network | Purpose |
 |---|---|
-| TBD | Enterprise Internal Network |
+| 192.168.15.0/24 | Internal Enterprise Lab Network |
 
 ---
 
 # IP Allocation
 
-| Device | Hostname | IP Address | Purpose |
+| Device | Address |
+|---|---|
+| DC01 | 192.168.15.10 |
+| Default Gateway | 192.168.15.2 |
 |---|---|---|---|
-| Domain Controller | DC01 | TBD | Active Directory / DNS |
+| Domain Controller | DC01 | 192.168.15.10 | Active Directory / DNS |
 | User Workstation | CLIENT01 | TBD | Employee Endpoint |
 | SIEM Platform | SPLUNK01 | TBD | Security Monitoring |
 | Security Testing System | KALI01 | TBD | Attack Simulation |
