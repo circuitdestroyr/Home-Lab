@@ -12,11 +12,11 @@ The goal is to create a realistic small business Active Directory environment th
 
 | Item | Value |
 |---|---|
-| Domain Name | TBD |
-| Forest Name | TBD |
+| Domain Name | homelab.local |
+| Forest Name | homelab.local |
 | Domain Controller | DC01 |
 | DNS Server | DC01 |
-| Functional Level | TBD |
+| Functional Level | Windows Server 2022 |
 
 ---
 
