@@ -1,16 +1,10 @@
-# Project Status
-
-## Project
-
-Cyber Enterprise Lab
-
 ## Current Phase
 
 Phase 1 – Core Infrastructure
 
 ## Current Objective
 
-Build the foundation of the enterprise environment and prepare DC01 for Active Directory deployment.
+Complete the Active Directory foundation and begin building the enterprise environment.
 
 ## Completed
 
@@ -18,12 +12,11 @@ Build the foundation of the enterprise environment and prepare DC01 for Active D
 - [x] Initial README created
 - [x] Project documentation structure created
 - [x] DC01 virtual machine created
-- [x] DC01 operating system installed
-- [x] DC01 network configuration completed
-- [x] Static IP assigned
+- [x] Windows Server installed on DC01
+- [x] Static IP configured
 - [x] Active Directory Domain Services installed
 - [x] DC01 promoted to Domain Controller
-- [x] DNS configured
+- [x] DNS configured on DC01
 
 ## In Progress
 
@@ -31,23 +24,16 @@ Build the foundation of the enterprise environment and prepare DC01 for Active D
 - [ ] Create VM inventory documentation
 - [ ] Create IP addressing plan
 - [ ] Build CLIENT01 workstation
+- [ ] Join CLIENT01 to domain
 
 ## Upcoming
 
-- CLIENT01 Windows workstation
 - Splunk Enterprise deployment
 - Sysmon deployment
+- Windows event collection
 - FortiGate firewall
 - Juniper networking
 - Linux servers
 - Cybersecurity attack scenarios
 - Detection engineering
 - Incident response investigations
-
-## Blockers
-
-None
-
-## Last Updated
-
-2026-08-03
