@@ -25,3 +25,157 @@ Date: 2026-08-03
 - Assign static IP
 - Install Active Directory Domain Services
 - Promote DC01
+
+# Session 2— DC01 Health Verification
+
+## Objective
+
+Verify that the Active Directory Domain Controller (DC01) is healthy before introducing the first domain-joined workstation (CLIENT01).
+
+The goal was to establish a known-good baseline before expanding the environment.
+
+---
+
+# Verification Tests
+
+## Test 1 — Verify Active Directory Shares
+
+### Command
+
+```cmd
+net share
+```
+
+### Purpose
+
+Verify that Active Directory created the required domain shares.
+
+The two important shares are:
+
+- NETLOGON — Used for domain logon scripts and client authentication processes.
+- SYSVOL — Stores Group Policy Objects (GPOs) and other Active Directory related files.
+
+### Output
+
+```text
+NETLOGON     C:\Windows\SYSVOL\sysvol\homelab.local\SCRIPTS
+SYSVOL       C:\Windows\SYSVOL\sysvol
+```
+
+### Analysis
+
+The presence of both SYSVOL and NETLOGON confirms that Active Directory Domain Services successfully created the required shares.
+
+### Result
+
+PASS ✅
+
+---
+
+## Test 2 — Verify DNS Resolution
+
+### Command
+
+```cmd
+nslookup homelab.local
+```
+
+### Purpose
+
+Verify that the Active Directory DNS service can resolve the domain name.
+
+### Output
+
+```text
+Name: homelab.local
+Address: 192.168.15.10
+```
+
+### Analysis
+
+The domain successfully resolves to the DC01 IP address.
+
+A timeout was observed when querying the IPv6 loopback address (::1), but the domain resolution completed successfully.
+
+### Result
+
+PASS ✅
+
+---
+
+## Test 3 — Verify Domain Controller Advertising
+
+### Command
+
+```cmd
+dcdiag /test:Advertising
+```
+
+### Purpose
+
+Verify that DC01 is correctly advertising itself as an Active Directory Domain Controller.
+
+### Output
+
+```text
+DC01 passed test Connectivity
+
+DC01 passed test Advertising
+```
+
+### Analysis
+
+DC01 successfully passed the advertising test and is available as a domain controller.
+
+### Result
+
+PASS ✅
+
+---
+
+## Test 4 — Verify Windows Time Service
+
+### Command
+
+```cmd
+w32tm /query /status
+```
+
+### Purpose
+
+Verify that the Windows Time service is functioning.
+
+Time synchronization is critical for Active Directory authentication because Kerberos relies on accurate system time.
+
+### Output
+
+```text
+Source: Local CMOS Clock
+```
+
+### Analysis
+
+DC01 is currently acting as the authoritative time source for this single-domain-controller lab environment.
+
+Future configuration may include external NTP synchronization.
+
+### Result
+
+PASS ✅
+
+---
+
+# Conclusion
+
+DC01 successfully passed all baseline health verification tests.
+
+The Active Directory environment is ready for expansion.
+
+---
+
+# Next Steps
+
+- Update project status
+- Deploy CLIENT01
+- Configure CLIENT01 networking
+- Join CLIENT01 to homelab.local
