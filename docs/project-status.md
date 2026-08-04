@@ -18,21 +18,19 @@ Complete the Active Directory foundation and begin expanding the enterprise envi
 
 ## Completed
 
-- [x] GitHub repository created
-- [x] Initial README created
-- [x] Project documentation structure created
-- [x] DC01 virtual machine created
-- [x] Windows Server installed on DC01
-- [x] Static IP configured on DC01
-- [x] Active Directory Domain Services installed
-- [x] DC01 promoted to Domain Controller
-- [x] DNS configured on DC01
+- [x] Document DC01 configuration
+- [x] Create VM inventory documentation
+- [x] Create IP addressing plan
+- [x] Deploy DC01 Domain Controller
+- [x] Configure Active Directory Domain Services
+- [x] Configure DNS
+- [x] Verify SYSVOL and NETLOGON shares
+- [x] Verify DNS resolution
+- [x] Verify Domain Controller Advertising
+- [x] Verify Windows Time service
 
 ## In Progress
 
-- [ ] Document DC01 configuration
-- [ ] Create VM inventory documentation
-- [ ] Create IP addressing plan
 - [ ] Build CLIENT01 workstation
 - [ ] Join CLIENT01 to the domain
 
