@@ -64,6 +64,30 @@ Separate infrastructure workloads and security monitoring workloads between the 
 
 Separating infrastructure and monitoring mirrors real-world environments where enterprise systems and security platforms are often managed independently.
 
+This approach also allows the lab to scale while respecting available hardware resources by distributing virtual machines across multiple physical hosts.
+
+The Windows laptop will prioritize Windows-based infrastructure workloads, while the M2 Mac will provide additional capacity for Linux-based security tooling and analysis platforms.
+
+## Planned Distribution
+
+### Windows Laptop
+
+Primary workloads:
+
+- DC01
+- CLIENT01
+- Future Windows Servers
+- Network appliance simulations
+
+### M2 Mac
+
+Primary workloads:
+
+- SPLUNK01
+- KALI01
+- Future Linux-based security tools
+- Supporting analysis workloads
+
 ---
 
 # Decision 003 — Documentation Strategy
