@@ -18,7 +18,7 @@ This document tracks all virtual machines in the Cyber Enterprise Lab, including
 
 | Hostname | Purpose | Operating System | IP Address | Status |
 |---|---|---|---|---|
-| CLIENT01 | Standard Employee Workstation / User Endpoint | Windows 11 | TBD | Planned |
+| CLIENT01 | Standard Employee Workstation / User Endpoint | Windows 11 Pro | TBD | Operational |
 
 ---
 
