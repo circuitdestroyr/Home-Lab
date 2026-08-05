@@ -1,38 +1,53 @@
 # Project Status
 
-## Project
-
-Cyber Enterprise Lab
-
-## Project Goal
-
-Build a realistic small business enterprise environment focused on cybersecurity operations, detection engineering, and incident response.
-
 ## Current Phase
 
-Phase 1 – Core Infrastructure
+CLIENT01 deployment complete. Preparing Active Directory integration.
 
-## Current Objective
+---
 
-Complete the Active Directory foundation and begin expanding the enterprise environment with endpoints, logging, and security monitoring capabilities.
+## Current Environment Status
 
-## Completed
+### DC01
 
-- [x] Document DC01 configuration
-- [x] Create VM inventory documentation
-- [x] Create IP addressing plan
-- [x] Deploy DC01 Domain Controller
-- [x] Configure Active Directory Domain Services
-- [x] Configure DNS
-- [x] Verify SYSVOL and NETLOGON shares
-- [x] Verify DNS resolution
-- [x] Verify Domain Controller Advertising
-- [x] Verify Windows Time service
+Status: Operational
+
+Completed:
+- Windows Server 2022 installed
+- Active Directory Domain Services installed
+- Domain created
+- DNS configured
+- SYSVOL verified
+- NETLOGON verified
+- Domain Controller health checks completed
+
+---
+
+### CLIENT01
+
+Status: Operational
+
+Completed:
+- Windows 11 Pro installed
+- VMware VM created
+- TPM configured
+- Secure Boot enabled
+- Hostname assigned as CLIENT01
+- Local administrative account created
+- Windows installation completed successfully
+
+Pending:
+- Active Directory domain join
+- DNS validation
+- Domain authentication testing
+
+---
 
 ## In Progress
 
-- [ ] Build CLIENT01 workstation
-- [ ] Join CLIENT01 to the domain
+- [ ] Configure CLIENT01 networking
+- [ ] Join CLIENT01 to homelab.local
+- [ ] Verify domain authentication
 
 ## Upcoming
 
@@ -67,7 +82,7 @@ Complete the Active Directory foundation and begin expanding the enterprise envi
 | System | Purpose | Status |
 |---|---|---|
 | DC01 | Active Directory Domain Controller / DNS | Operational |
-| CLIENT01 | Windows Domain Workstation | Planned |
+| CLIENT01 | Windows Domain Workstation | Operational |
 | SPLUNK01 | Security Monitoring Platform | Planned |
 | KALI01 | Attack Simulation Workstation | Planned |
 | FG01 | Firewall | Planned |
@@ -79,4 +94,4 @@ None
 
 ## Last Updated
 
-2026-08-03
+2026-08-04
