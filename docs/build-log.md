@@ -179,3 +179,68 @@ The Active Directory environment is ready for expansion.
 - Deploy CLIENT01
 - Configure CLIENT01 networking
 - Join CLIENT01 to homelab.local
+
+# Session 3 — CLIENT01 Deployment
+
+## Objective
+
+Deploy the first Windows endpoint for the Cyber Enterprise Lab.
+
+CLIENT01 provides a realistic employee workstation platform for:
+
+- Active Directory authentication
+- Security logging
+- Detection engineering
+- Incident response scenarios
+
+---
+
+## Virtual Machine Deployment
+
+CLIENT01 was created in VMware Workstation 17.5.
+
+Configuration:
+
+| Component | Value |
+|---|---|
+| Hostname | CLIENT01 |
+| Operating System | Windows 11 Pro |
+| CPU | 2 cores |
+| Memory | 4 GB RAM |
+| Storage | 64 GB |
+| Disk Configuration | Single virtual disk |
+| Network | VMware NAT |
+
+---
+
+## Windows Installation
+
+Completed:
+
+- Windows 11 Pro installation completed
+- Device hostname configured as CLIENT01
+- Work/school setup selected
+- Domain join deferred until post-install configuration
+- Local administrator account created
+
+---
+
+## Current Status
+
+CLIENT01 is operational and ready for Active Directory integration.
+
+Pending:
+
+- Verify hostname
+- Verify network configuration
+- Configure DNS pointing to DC01
+- Join homelab.local domain
+- Verify domain authentication
+
+---
+
+## Next Steps
+
+- Complete CLIENT01 baseline verification
+- Configure Active Directory domain membership
+- Begin endpoint security configuration
