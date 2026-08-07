@@ -24,7 +24,6 @@ The goal is to maintain a realistic small business enterprise network design whi
 |---|---|
 | DC01 | 192.168.15.10 |
 | Default Gateway | 192.168.15.2 |
-|---|---|---|---|
 | Domain Controller | DC01 | 192.168.15.10 | Active Directory / DNS |
 | User Workstation | CLIENT01 | 192.168.15.20 | Employee Endpoint |
 | SIEM Platform | SPLUNK01 | TBD | Security Monitoring |
