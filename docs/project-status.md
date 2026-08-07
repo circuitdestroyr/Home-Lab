@@ -2,7 +2,8 @@
 
 ## Current Phase
 
-CLIENT01 deployment complete. Preparing Active Directory integration.
+Current Phase:
+Security Visibility Foundation
 
 ---
 
@@ -10,6 +11,7 @@ CLIENT01 deployment complete. Preparing Active Directory integration.
 
 Complete Active Directory integration for CLIENT01 by:
 
+- CLIENT01 Domain Integration
 - Configuring CLIENT01 networking
 - Pointing DNS to DC01
 - Joining homelab.local
