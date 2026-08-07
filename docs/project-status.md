@@ -6,6 +6,16 @@ CLIENT01 deployment complete. Preparing Active Directory integration.
 
 ---
 
+## Current Milestone
+
+Complete Active Directory integration for CLIENT01 by:
+
+- Configuring CLIENT01 networking
+- Pointing DNS to DC01
+- Joining homelab.local
+- Verifying domain authentication
+- Creating a post-domain-join VM snapshot
+
 ## Current Environment Status
 
 ### DC01
