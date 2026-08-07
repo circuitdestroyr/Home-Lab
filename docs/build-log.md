@@ -244,3 +244,44 @@ Pending:
 - Complete CLIENT01 baseline verification
 - Configure Active Directory domain membership
 - Begin endpoint security configuration
+
+---
+
+# Session 3 — CLIENT01 Active Directory Integration
+
+## Objective
+
+Complete the integration of CLIENT01 into the homelab.local Active Directory environment.
+
+The goal was to establish a functioning enterprise workstation relationship with DC01 and verify:
+
+- Active Directory domain membership
+- DNS-based domain discovery
+- Domain authentication
+- Secure channel communication
+
+---
+
+## Network Configuration
+
+CLIENT01 was connected to the VMware NAT network alongside DC01.
+
+Configuration:
+
+| Component | Value |
+| --------- | ----- |
+| Network | VMware NAT |
+| Domain Controller | DC01 |
+| DNS Server | 192.168.15.10 |
+| Domain | homelab.local |
+
+---
+
+## Active Directory Discovery Verification
+
+### Test 1 — Verify Connectivity to DC01
+
+### Command
+
+```powershell
+ping 192.168.15.10
