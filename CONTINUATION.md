@@ -6,18 +6,22 @@ Before making architecture changes, recommendations, or adding new documentation
 Review the existing repository structure and respect decisions already documented.
 
 Primary architecture documents:
+
 - docs/architecture/architecture-decisions.md
 - docs/architecture/vm-inventory.md
 - docs/architecture/active-directory-design.md
 
 Project tracking:
+
 - docs/project-status.md
 - docs/roadmap.md
 - docs/build-log.md
 
+
 Project Goal:
 
 Build a cybersecurity-focused enterprise lab designed for:
+
 - Security operations
 - Detection engineering
 - Incident response
@@ -25,17 +29,33 @@ Build a cybersecurity-focused enterprise lab designed for:
 - Network security
 - Purple team exercises
 
-The lab is not intended to be a generic IT homelab. All infrastructure decisions should support future security scenarios, logging, monitoring, investigations, and attack simulations.
+The lab is not intended to be a generic IT homelab.
+
+All infrastructure decisions should support future security scenarios, logging, monitoring, investigations, and attack simulations.
+
 
 Current Architecture Decisions:
 
-Decision 001 — Lab Focus:
+Decision 001 — Lab Focus
+
 The environment is designed as a cybersecurity enterprise environment.
 
-Decision 002 — Host Distribution:
+Primary objectives:
+
+- Security operations practice
+- Detection engineering
+- Incident response workflows
+- Active Directory security
+- Network security
+- Purple team exercises
+
+
+Decision 002 — Host Distribution
+
 Workloads are distributed between available physical systems.
 
 Windows Laptop responsibilities:
+
 - VMware environment
 - Active Directory
 - Windows endpoints
@@ -43,64 +63,77 @@ Windows Laptop responsibilities:
 - Network appliance simulations
 
 M2 Mac responsibilities:
+
 - Splunk
 - Security analysis tools
 - Linux security workloads
 - Supporting security tools
 
 Reason:
+
 Separate infrastructure workloads from security monitoring workloads while respecting available hardware resources.
 
-Decision 003 — Documentation Strategy:
+
+Decision 003 — Documentation Strategy
+
 GitHub is the source of truth.
 
 All major changes should follow:
+
 Design → Document → Build → Verify → Commit
 
-Decision 004 — Naming Convention:
+
+Decision 004 — Naming Convention
+
+Enterprise-style naming conventions are used.
+
+Standards:
 
 Domain Controllers:
 DC##
 
+Example:
+DC01
+
 Clients:
 CLIENT##
+
+Example:
+CLIENT01
 
 Servers:
 SRV##
 
+Example:
+SRV01
+
 Security Tools:
 TOOL##
+
+Example:
+SPLUNK01
 
 Firewalls:
 FG##
 
+Example:
+FG01
+
 Network Devices:
 JNPR##
 
-Completed Milestone:
+Example:
+JNPR01
 
-DC01 Foundation is complete.
 
-Completed:
-- Windows Server 2022 installed
-- DC01 deployed
-- Static IP configured
-- Active Directory Domain Services installed
-- Domain created
-- DNS configured
-- VMware Tools installed
-- SYSVOL verified
-- NETLOGON verified
-- DNS resolution tested
-- Domain Controller Advertising verified
-- Windows Time service verified
+Completed Milestones:
 
-Current Environment:
+## DC01 Foundation
 
-Domain:
-homelab.local
+Status:
+Complete
 
-Domain Controller:
+DC01:
 
 Hostname:
 DC01
@@ -111,54 +144,224 @@ Microsoft Windows Server 2022 Standard Evaluation
 Role:
 Active Directory Domain Controller / DNS Server
 
+Domain:
+homelab.local
+
 IP:
 192.168.15.10
 
 Resources:
+
 - 2 CPU cores
 - 4 GB RAM
 - 60 GB storage
 
-Current Project Phase:
 
-Preparing CLIENT01 deployment.
+Completed DC01 tasks:
 
-CLIENT01 Design:
+- Windows Server installation
+- Static IP configuration
+- Active Directory Domain Services installation
+- Domain Controller promotion
+- DNS configuration
+- VMware Tools installation
+- SYSVOL verification
+- NETLOGON verification
+- DNS resolution verification
+- Domain Controller Advertising verification
+- Windows Time verification
+
+
+## CLIENT01 Deployment
+
+Status:
+Complete
+
+CLIENT01:
 
 Hostname:
 CLIENT01
 
-Role:
-Standard Employee Workstation / User Endpoint
-
 Operating System:
 Windows 11 Pro
 
-Planned Resources:
+Role:
+Standard Employee Workstation / User Endpoint
+
+Resources:
+
 - 2 CPU cores
 - 4 GB RAM
 - 64 GB storage
 
+Network:
+
+- VMware NAT
+- Same VMware network as DC01
+
+
 Purpose:
-Provide a realistic employee endpoint for:
+
+Provide a realistic enterprise endpoint for:
+
 - Authentication events
 - Security logging
 - Detection engineering
 - Incident response scenarios
 
-Future Planned Systems:
 
-SPLUNK01:
+Completed CLIENT01 tasks:
+
+- Windows 11 Pro installation
+- VMware VM creation
+- TPM configured
+- Secure Boot enabled
+- Hostname assigned
+- Local administrative account created
+- Network configured
+- DNS pointed to DC01
+- Active Directory discovery verified
+- Joined homelab.local domain
+- Domain authentication verified
+- Secure channel verified
+
+
+CLIENT01 Verification Results:
+
+Domain Membership:
+
+Command:
+
+systeminfo | findstr /B /C:"Domain"
+
+Result:
+
+Domain: homelab.local
+
+
+Authentication:
+
+Command:
+
+whoami
+
+Result:
+
+homelab\administrator
+
+
+Secure Channel:
+
+Command:
+
+Test-ComputerSecureChannel
+
+Result:
+
+True
+
+
+Active Directory verification:
+
+CLIENT01 computer object confirmed in:
+
+homelab.local
+└── Computers
+    └── CLIENT01
+
+
+Current Environment:
+
+Domain:
+
+homelab.local
+
+
+Domain Controller:
+
+DC01
+
+Services:
+
+- Active Directory Domain Services
+- DNS
+- Kerberos
+- Domain authentication
+
+
+Domain Endpoint:
+
+CLIENT01
+
+Services:
+
+- Windows 11 enterprise workstation
+- Domain authentication endpoint
+- Future security telemetry source
+
+
+Current Project Phase:
+
+Security Visibility Foundation
+
+
+Next Planned Systems:
+
+SPLUNK01
+
+Role:
 SIEM / log analysis platform
 
-KALI01:
+Planned responsibilities:
+
+- Collect Windows event logs
+- Analyze authentication activity
+- Build detections
+- Support investigations
+
+
+KALI01
+
+Role:
 Security testing workstation
 
-FG01:
+Purpose:
+
+- Controlled attack simulations
+- Security testing
+- Purple team exercises
+
+
+FG01
+
+Role:
 Firewall/security gateway simulation
 
-JNPR01:
+
+JNPR01
+
+Role:
 Routing/switching simulation
+
+
+Next Steps:
+
+1. Review repository state.
+2. Update documentation files:
+   - docs/build-log.md
+   - docs/project-status.md
+   - docs/architecture/vm-inventory.md
+
+3. Commit CLIENT01 completion changes.
+
+4. Begin Security Visibility Foundation planning.
+
+5. Design SPLUNK01 deployment.
+
+6. Plan Windows telemetry collection from:
+   - DC01
+   - CLIENT01
+
 
 Important Workflow Rule:
 
@@ -167,27 +370,21 @@ Do not create duplicate documentation if a decision already exists.
 Before adding new files:
 Check existing architecture documents.
 
-Documentation standards:
 
-Build Log:
-Documents what was done, commands used, purpose, output, analysis, and verification.
+Current Lab State:
 
-Project Status:
-Shows current progress.
+The lab has moved from infrastructure deployment into security visibility preparation.
 
-Architecture Decisions:
-Documents why decisions were made.
+Current foundation:
 
-VM Inventory:
-Tracks systems and their current status.
+DC01
++
+CLIENT01
++
+Active Directory
++
+Domain Authentication
 
-Current Next Steps:
+Next objective:
 
-1. Finish architecture documentation updates.
-2. Commit CLIENT01 role definition.
-3. Review repository state.
-4. Build CLIENT01.
-5. Configure CLIENT01 networking.
-6. Point CLIENT01 DNS to DC01.
-7. Join CLIENT01 to homelab.local.
-8. Verify domain authentication.
+Build the monitoring and detection layer.
