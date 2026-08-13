@@ -1,390 +1,221 @@
-Cyber Enterprise Lab Continuation Brief
+# Cyber Enterprise Lab — Continuation Statement
 
-The GitHub repository is the source of truth for this project.
+The GitHub repository is the source of truth for this project:
 
-Before making architecture changes, recommendations, or adding new documentation:
-Review the existing repository structure and respect decisions already documented.
+https://github.com/circuitdestroyr/Home-Lab
 
-Primary architecture documents:
+The local repository is now configured on the Windows laptop at:
 
-- docs/architecture/architecture-decisions.md
-- docs/architecture/vm-inventory.md
-- docs/architecture/active-directory-design.md
+C:\Users\nickc\Home-Lab
 
-Project tracking:
+Git is installed and working.
 
-- docs/project-status.md
-- docs/roadmap.md
-- docs/build-log.md
+Current Git status:
 
+- Branch: main
+- Repository synchronized with origin/main
+- Working tree clean
 
-Project Goal:
+Latest commit:
 
-Build a cybersecurity-focused enterprise lab designed for:
+70e9a55 — Document CLIENT01 integration and lab status
 
-- Security operations
-- Detection engineering
-- Incident response
-- Active Directory security
-- Network security
-- Purple team exercises
+The latest documentation changes have been successfully pushed to GitHub.
 
-The lab is not intended to be a generic IT homelab.
+---
 
-All infrastructure decisions should support future security scenarios, logging, monitoring, investigations, and attack simulations.
-
-
-Current Architecture Decisions:
-
-Decision 001 — Lab Focus
-
-The environment is designed as a cybersecurity enterprise environment.
-
-Primary objectives:
-
-- Security operations practice
-- Detection engineering
-- Incident response workflows
-- Active Directory security
-- Network security
-- Purple team exercises
-
-
-Decision 002 — Host Distribution
-
-Workloads are distributed between available physical systems.
-
-Windows Laptop responsibilities:
-
-- VMware environment
-- Active Directory
-- Windows endpoints
-- Infrastructure servers
-- Network appliance simulations
-
-M2 Mac responsibilities:
-
-- Splunk
-- Security analysis tools
-- Linux security workloads
-- Supporting security tools
-
-Reason:
-
-Separate infrastructure workloads from security monitoring workloads while respecting available hardware resources.
-
-
-Decision 003 — Documentation Strategy
-
-GitHub is the source of truth.
-
-All major changes should follow:
-
-Design → Document → Build → Verify → Commit
-
-
-Decision 004 — Naming Convention
-
-Enterprise-style naming conventions are used.
-
-Standards:
-
-Domain Controllers:
-DC##
-
-Example:
-DC01
-
-Clients:
-CLIENT##
-
-Example:
-CLIENT01
-
-Servers:
-SRV##
-
-Example:
-SRV01
-
-Security Tools:
-TOOL##
-
-Example:
-SPLUNK01
-
-Firewalls:
-FG##
-
-Example:
-FG01
-
-Network Devices:
-JNPR##
-
-Example:
-JNPR01
-
-
-Completed Milestones:
-
-## DC01 Foundation
-
-Status:
-Complete
-
-DC01:
-
-Hostname:
-DC01
-
-Operating System:
-Microsoft Windows Server 2022 Standard Evaluation
-
-Role:
-Active Directory Domain Controller / DNS Server
-
-Domain:
-homelab.local
-
-IP:
-192.168.15.10
-
-Resources:
-
-- 2 CPU cores
-- 4 GB RAM
-- 60 GB storage
-
-
-Completed DC01 tasks:
-
-- Windows Server installation
-- Static IP configuration
-- Active Directory Domain Services installation
-- Domain Controller promotion
-- DNS configuration
-- VMware Tools installation
-- SYSVOL verification
-- NETLOGON verification
-- DNS resolution verification
-- Domain Controller Advertising verification
-- Windows Time verification
-
-
-## CLIENT01 Deployment
-
-Status:
-Complete
-
-CLIENT01:
-
-Hostname:
-CLIENT01
-
-Operating System:
-Windows 11 Pro
-
-Role:
-Standard Employee Workstation / User Endpoint
-
-Resources:
-
-- 2 CPU cores
-- 4 GB RAM
-- 64 GB storage
-
-Network:
-
-- VMware NAT
-- Same VMware network as DC01
-
-
-Purpose:
-
-Provide a realistic enterprise endpoint for:
-
-- Authentication events
-- Security logging
-- Detection engineering
-- Incident response scenarios
-
-
-Completed CLIENT01 tasks:
-
-- Windows 11 Pro installation
-- VMware VM creation
-- TPM configured
-- Secure Boot enabled
-- Hostname assigned
-- Local administrative account created
-- Network configured
-- DNS pointed to DC01
-- Active Directory discovery verified
-- Joined homelab.local domain
-- Domain authentication verified
-- Secure channel verified
-
-
-CLIENT01 Verification Results:
-
-Domain Membership:
-
-Command:
-
-systeminfo | findstr /B /C:"Domain"
-
-Result:
-
-Domain: homelab.local
-
-
-Authentication:
-
-Command:
-
-whoami
-
-Result:
-
-homelab\administrator
-
-
-Secure Channel:
-
-Command:
-
-Test-ComputerSecureChannel
-
-Result:
-
-True
-
-
-Active Directory verification:
-
-CLIENT01 computer object confirmed in:
-
-homelab.local
-└── Computers
-    └── CLIENT01
-
-
-Current Environment:
-
-Domain:
-
-homelab.local
-
-
-Domain Controller:
-
-DC01
-
-Services:
-
-- Active Directory Domain Services
-- DNS
-- Kerberos
-- Domain authentication
-
-
-Domain Endpoint:
-
-CLIENT01
-
-Services:
-
-- Windows 11 enterprise workstation
-- Domain authentication endpoint
-- Future security telemetry source
-
-
-Current Project Phase:
+## Current Lab Phase
 
 Security Visibility Foundation
 
+---
 
-Next Planned Systems:
+## Current Environment
 
-SPLUNK01
+### DC01
+
+Status:
+Operational
 
 Role:
-SIEM / log analysis platform
+
+- Active Directory Domain Controller
+- DNS Server
+
+Domain:
+
+homelab.local
+
+IP:
+
+192.168.15.10
+
+---
+
+### CLIENT01
+
+Status:
+
+Operational — Domain Joined
+
+Role:
+
+Standard Employee Workstation / User Endpoint
+
+Operating System:
+
+Windows 11 Pro
+
+Network:
+
+VMware NAT
+
+DNS:
+
+192.168.15.10
+
+Domain:
+
+homelab.local
+
+---
+
+## CLIENT01 Verification Completed
+
+Verified:
+
+- Network connectivity to DC01
+- DNS configuration
+- Active Directory discovery
+- Domain membership
+- Domain authentication
+- Secure channel
+- Active Directory computer object
+
+Verification results documented in:
+
+docs/build-log.md
+
+Project status documented in:
+
+docs/project-status.md
+
+---
+
+## Remaining CLIENT01 Task
+
+The only remaining CLIENT01 baseline verification is:
+
+- Verify that the post-domain-join VMware snapshot exists
+
+Important:
+
+Do not assume the snapshot exists.
+
+Physically verify it in VMware Workstation before marking the task complete.
+
+If the snapshot does not exist, create an appropriate post-domain-join baseline snapshot and document the change.
+
+---
+
+## Next Major Phase
+
+After CLIENT01 baseline verification:
+
+### Security Visibility Foundation
+
+Begin planning:
+
+### SPLUNK01
+
+Role:
+
+SIEM / Security Monitoring Platform
 
 Planned responsibilities:
 
-- Collect Windows event logs
-- Analyze authentication activity
-- Build detections
-- Support investigations
+- Windows event collection
+- Authentication monitoring
+- Security event analysis
+- Detection engineering
+- Investigation workflows
+- Alert creation and tuning
 
+Initial telemetry sources:
 
-KALI01
+- DC01
+- CLIENT01
 
-Role:
-Security testing workstation
+Future telemetry sources:
 
-Purpose:
+- Linux systems
+- Firewall
+- Network infrastructure
+- Security testing systems
 
-- Controlled attack simulations
-- Security testing
-- Purple team exercises
+---
 
+## Future Systems
 
-FG01
+SPLUNK01:
+Planned
 
-Role:
-Firewall/security gateway simulation
+KALI01:
+Planned
 
+FG01:
+Planned
 
-JNPR01
+JNPR01:
+Planned
 
-Role:
-Routing/switching simulation
+---
 
+## Important Workflow
 
-Next Steps:
+Continue using:
 
-1. Review repository state.
-2. Update documentation files:
-   - docs/build-log.md
-   - docs/project-status.md
-   - docs/architecture/vm-inventory.md
+Design → Document → Build → Verify → Commit → Push → Verify
 
-3. Commit CLIENT01 completion changes.
+GitHub remains the source of truth.
 
-4. Begin Security Visibility Foundation planning.
+Before making architecture changes:
 
-5. Design SPLUNK01 deployment.
+1. Review existing documentation.
+2. Respect existing architecture decisions.
+3. Avoid duplicate documentation.
+4. Make changes locally.
+5. Review the Git diff.
+6. Run git diff --check.
+7. Commit meaningful changes.
+8. Push to GitHub.
+9. Verify the repository is clean and synchronized.
 
-6. Plan Windows telemetry collection from:
-   - DC01
-   - CLIENT01
+---
 
+## Next Session Starting Point
 
-Important Workflow Rule:
+Start with:
 
-Do not create duplicate documentation if a decision already exists.
+1. Open VMware Workstation.
+2. Locate CLIENT01.
+3. Inspect the existing snapshot list.
+4. Determine whether a post-domain-join baseline snapshot exists.
+5. If necessary, create the baseline snapshot.
+6. Update project-status.md and build-log.md only after physical verification.
+7. Commit and push the verified change.
+8. Begin SPLUNK01 architecture planning.
 
-Before adding new files:
-Check existing architecture documents.
+Do not begin SPLUNK01 deployment until the CLIENT01 baseline state is verified.
 
+Current stopping point:
 
-Current Lab State:
+CLIENT01 is operational and domain joined.
 
-The lab has moved from infrastructure deployment into security visibility preparation.
+Documentation is synchronized with GitHub.
 
-Current foundation:
+The repository is clean.
 
-DC01
-+
-CLIENT01
-+
-Active Directory
-+
-Domain Authentication
+Next task:
 
-Next objective:
-
-Build the monitoring and detection layer.
+Verify the CLIENT01 post-domain-join VMware snapshot.
