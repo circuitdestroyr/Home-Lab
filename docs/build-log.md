@@ -253,7 +253,7 @@ Completed:
 ## Next Steps
 
 - Complete CLIENT01 baseline verification
-- Configure Active Directory domain membership
+- Verify post-domain-join VM snapshot
 - Begin endpoint security configuration
 
 ---
@@ -296,3 +296,176 @@ Configuration:
 
 ```powershell
 ping 192.168.15.10
+```
+
+### Purpose
+
+Verify that CLIENT01 can communicate with DC01 over the lab network.
+
+### Result
+
+PASS
+
+---
+
+## Test 2 — Verify Domain Discovery
+
+### Command
+
+```powershell
+nltest /dsgetdc:homelab.local
+```
+
+### Purpose
+
+Verify that CLIENT01 can locate the Active Directory Domain Controller for homelab.local.
+
+### Result
+
+PASS
+
+---
+
+## Test 3 — Verify Domain Membership
+
+### Command
+
+```powershell
+systeminfo | findstr /B /C:"Domain"
+```
+
+### Output
+
+```text
+Domain: homelab.local
+```
+
+### Result
+
+PASS
+
+---
+
+## Test 4 — Verify Domain Authentication
+
+### Command
+
+```powershell
+whoami
+```
+
+### Output
+
+```text
+homelab\administrator
+```
+
+### Result
+
+PASS
+
+---
+
+## Test 5 — Verify Secure Channel
+
+### Command
+
+```powershell
+Test-ComputerSecureChannel
+```
+
+### Output
+
+```text
+True
+```
+
+### Result
+
+PASS
+
+---
+
+## Test 6 — Verify Active Directory Computer Object
+
+CLIENT01 was verified in Active Directory under:
+
+```text
+homelab.local
+└── Computers
+    └── CLIENT01
+```
+
+### Result
+
+PASS
+
+---
+
+## CLIENT01 Integration Conclusion
+
+CLIENT01 successfully completed Active Directory integration.
+
+Verified:
+
+- Network connectivity to DC01
+- DNS-based domain discovery
+- Active Directory domain membership
+- Domain authentication
+- Secure channel communication
+- Active Directory computer object creation
+
+CLIENT01 is now operational as a domain-joined enterprise workstation.
+
+---
+
+# Session 4 — CLIENT01 Documentation Reconciliation
+
+## Objective
+
+Reconcile project status documentation with the completed CLIENT01 Active Directory integration.
+
+## Completed Verification
+
+CLIENT01 Active Directory integration has been completed and verified.
+
+Verified:
+
+- CLIENT01 DNS configured to use DC01
+- Active Directory discovery successful
+- CLIENT01 joined to `homelab.local`
+- Domain authentication successful
+- Secure channel verification successful
+- CLIENT01 computer object confirmed in Active Directory
+
+## Documentation Update
+
+The project status documentation previously listed CLIENT01 Active Directory integration tasks as pending.
+
+Those tasks have now been updated to reflect their verified completion.
+
+CLIENT01 status:
+
+**Operational — Domain Joined**
+
+## Snapshot Verification
+
+A post-domain-join VM snapshot is intended to serve as the CLIENT01 baseline.
+
+The existence of this snapshot still requires physical verification in VMware.
+
+Status:
+
+**Pending verification**
+
+The snapshot will not be considered complete until it has been verified.
+
+## Result
+
+CLIENT01 Active Directory integration: **COMPLETE**
+
+Post-domain-join snapshot: **PENDING VERIFICATION**
+
+## Next Step
+
+Verify the CLIENT01 post-domain-join snapshot before beginning Security Visibility Foundation work and SPLUNK01 design.

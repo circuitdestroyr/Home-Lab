@@ -2,25 +2,30 @@
 
 ## Current Phase
 
-Current Phase:
 Security Visibility Foundation
 
 ---
+
 ## Current Milestone
 
-Complete Active Directory integration for CLIENT01.
+Complete the CLIENT01 baseline and transition the lab into the Security Visibility Foundation phase.
 
-Completed:
+### Completed
 
-- CLIENT01 Domain Integration
-- Configuring CLIENT01 networking
-- Pointing DNS to DC01
-- Joining homelab.local
-- Verifying domain authentication
+- CLIENT01 networking configured
+- DNS configured to use DC01
+- Active Directory discovery verified
+- CLIENT01 joined to `homelab.local`
+- Domain authentication verified
+- Secure channel verified
+- CLIENT01 computer object verified in Active Directory
 
-Remaining Verification:
+### Remaining Verification
 
 - Confirm post-domain-join VM snapshot exists
+
+---
+
 ## Current Environment Status
 
 ### DC01
@@ -28,6 +33,7 @@ Remaining Verification:
 Status: Operational
 
 Completed:
+
 - Windows Server 2022 installed
 - Active Directory Domain Services installed
 - Domain created
@@ -40,33 +46,26 @@ Completed:
 
 ### CLIENT01
 
-Status:
-Complete
+Status: Operational — Domain Joined
 
-CLIENT01:
+**Hostname:** CLIENT01
 
-Hostname:
-CLIENT01
+**Operating System:** Windows 11 Pro
 
-Operating System:
-Windows 11 Pro
+**Role:** Standard Employee Workstation / User Endpoint
 
-Role:
-Standard Employee Workstation / User Endpoint
-
-Resources:
+**Resources:**
 
 - 2 CPU cores
 - 4 GB RAM
 - 64 GB storage
 
-Network:
+**Network:**
 
 - VMware NAT
 - Same VMware network as DC01
 
-
-Purpose:
+### Purpose
 
 Provide a realistic enterprise endpoint for:
 
@@ -75,8 +74,7 @@ Provide a realistic enterprise endpoint for:
 - Detection engineering
 - Incident response scenarios
 
-
-Completed CLIENT01 tasks:
+### Completed CLIENT01 Tasks
 
 - Windows 11 Pro installation
 - VMware VM creation
@@ -87,84 +85,116 @@ Completed CLIENT01 tasks:
 - Network configured
 - DNS pointed to DC01
 - Active Directory discovery verified
-- Joined homelab.local domain
+- Joined `homelab.local` domain
 - Domain authentication verified
 - Secure channel verified
+- CLIENT01 computer object confirmed in Active Directory
 
+### CLIENT01 Verification Results
 
-CLIENT01 Verification Results:
-
-Domain Membership:
+**Domain Membership**
 
 Command:
 
+```powershell
 systeminfo | findstr /B /C:"Domain"
+```
 
 Result:
 
+```text
 Domain: homelab.local
+```
 
-
-Authentication:
+**Authentication**
 
 Command:
 
+```powershell
 whoami
+```
 
 Result:
 
+```text
 homelab\administrator
+```
 
-
-Secure Channel:
+**Secure Channel**
 
 Command:
 
+```powershell
 Test-ComputerSecureChannel
+```
 
 Result:
 
+```text
 True
+```
 
-
-Active Directory verification:
+**Active Directory Verification**
 
 CLIENT01 computer object confirmed in:
 
+```text
 homelab.local
 └── Computers
     └── CLIENT01
+```
 
-
-Remaining Verification:
+### Remaining Verification
 
 - Confirm post-domain-join VM snapshot exists
 
-### Identity and Administration
+---
+
+## Identity and Administration
+
+Planned:
+
 - Domain users and groups
 - Organizational Units (OUs)
 - Group Policy configuration
 - Administrative account structure
 
-### Security Operations
+---
+
+## Security Operations
+
+Planned:
+
 - Splunk Enterprise deployment
 - Windows event collection
 - Sysmon deployment
 - Linux log collection
 - Firewall log collection
 
-### Network Infrastructure
+---
+
+## Network Infrastructure
+
+Planned:
+
 - FortiGate firewall deployment
 - Juniper networking deployment
 - Network segmentation
 - Security monitoring
 
-### Cybersecurity Scenarios
+---
+
+## Cybersecurity Scenarios
+
+Planned:
+
 - MITRE ATT&CK-based attack simulations
 - Detection engineering
 - Alert creation and tuning
 - Incident response investigations
 - Lessons learned documentation
+
+---
 
 ## Environment Status
 
@@ -177,9 +207,13 @@ Remaining Verification:
 | FG01 | Firewall | Planned |
 | JNPR01 | Network Infrastructure | Planned |
 
+---
+
 ## Blockers
 
 None
+
+---
 
 ## Last Updated
 
