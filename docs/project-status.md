@@ -6,18 +6,21 @@ Current Phase:
 Security Visibility Foundation
 
 ---
-
 ## Current Milestone
 
-Complete Active Directory integration for CLIENT01 by:
+Complete Active Directory integration for CLIENT01.
+
+Completed:
 
 - CLIENT01 Domain Integration
 - Configuring CLIENT01 networking
 - Pointing DNS to DC01
 - Joining homelab.local
 - Verifying domain authentication
-- Creating a post-domain-join VM snapshot
 
+Remaining Verification:
+
+- Confirm post-domain-join VM snapshot exists
 ## Current Environment Status
 
 ### DC01
@@ -37,31 +40,105 @@ Completed:
 
 ### CLIENT01
 
-Status: Operational
+Status:
+Complete
 
-Completed:
-- Windows 11 Pro installed
-- VMware VM created
+CLIENT01:
+
+Hostname:
+CLIENT01
+
+Operating System:
+Windows 11 Pro
+
+Role:
+Standard Employee Workstation / User Endpoint
+
+Resources:
+
+- 2 CPU cores
+- 4 GB RAM
+- 64 GB storage
+
+Network:
+
+- VMware NAT
+- Same VMware network as DC01
+
+
+Purpose:
+
+Provide a realistic enterprise endpoint for:
+
+- Authentication events
+- Security logging
+- Detection engineering
+- Incident response scenarios
+
+
+Completed CLIENT01 tasks:
+
+- Windows 11 Pro installation
+- VMware VM creation
 - TPM configured
 - Secure Boot enabled
-- Hostname assigned as CLIENT01
+- Hostname assigned
 - Local administrative account created
-- Windows installation completed successfully
+- Network configured
+- DNS pointed to DC01
+- Active Directory discovery verified
+- Joined homelab.local domain
+- Domain authentication verified
+- Secure channel verified
 
-Pending:
-- Active Directory domain join
-- DNS validation
-- Domain authentication testing
 
----
+CLIENT01 Verification Results:
 
-## In Progress
+Domain Membership:
 
-- [ ] Configure CLIENT01 networking
-- [ ] Join CLIENT01 to homelab.local
-- [ ] Verify domain authentication
+Command:
 
-## Upcoming
+systeminfo | findstr /B /C:"Domain"
+
+Result:
+
+Domain: homelab.local
+
+
+Authentication:
+
+Command:
+
+whoami
+
+Result:
+
+homelab\administrator
+
+
+Secure Channel:
+
+Command:
+
+Test-ComputerSecureChannel
+
+Result:
+
+True
+
+
+Active Directory verification:
+
+CLIENT01 computer object confirmed in:
+
+homelab.local
+└── Computers
+    └── CLIENT01
+
+
+Remaining Verification:
+
+- Confirm post-domain-join VM snapshot exists
 
 ### Identity and Administration
 - Domain users and groups
@@ -94,7 +171,7 @@ Pending:
 | System | Purpose | Status |
 |---|---|---|
 | DC01 | Active Directory Domain Controller / DNS | Operational |
-| CLIENT01 | Windows Domain Workstation | Operational |
+| CLIENT01 | Windows Domain Workstation | Operational — Domain Joined |
 | SPLUNK01 | Security Monitoring Platform | Planned |
 | KALI01 | Attack Simulation Workstation | Planned |
 | FG01 | Firewall | Planned |
@@ -106,4 +183,4 @@ None
 
 ## Last Updated
 
-2026-08-04
+2026-08-13
