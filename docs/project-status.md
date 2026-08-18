@@ -150,6 +150,55 @@ homelab.local
 
 ---
 
+## SPLUNK01 Foundation
+
+Status:
+In Progress — OS installed, network configured
+
+SPLUNK01:
+
+Hostname:
+SPLUNK01
+
+Operating System:
+Ubuntu Server 24.04 LTS
+
+Role:
+SIEM / Security Monitoring
+
+IP:
+192.168.15.30
+
+Gateway:
+192.168.15.2
+
+DNS:
+192.168.15.10
+
+Network:
+VMware NAT
+
+Resources:
+
+- 4 vCPU
+- 6 GB RAM
+- 80 GB storage
+
+Current state:
+
+- Ubuntu Server installed
+- OpenSSH server installed
+- Static IP configured
+- Gateway connectivity verified
+- DC01 connectivity verified
+- Active Directory DNS resolution verified
+- Ubuntu system update in progress
+- Splunk Enterprise not yet installed
+- OS baseline verification pending
+- Baseline VMware snapshot pending
+
+---
+
 ## Identity and Administration
 
 Planned:
@@ -202,7 +251,7 @@ Planned:
 |---|---|---|
 | DC01 | Active Directory Domain Controller / DNS | Operational |
 | CLIENT01 | Windows Domain Workstation | Operational — Domain Joined |
-| SPLUNK01 | Security Monitoring Platform | Planned |
+| SPLUNK01 | Security Monitoring Platform | In Progress |
 | KALI01 | Attack Simulation Workstation | Planned |
 | FG01 | Firewall | Planned |
 | JNPR01 | Network Infrastructure | Planned |
@@ -217,4 +266,4 @@ None
 
 ## Last Updated
 
-2026-08-13
+2026-08-18
