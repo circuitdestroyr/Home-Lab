@@ -469,3 +469,111 @@ Post-domain-join snapshot: **PENDING VERIFICATION**
 ## Next Step
 
 Verify the CLIENT01 post-domain-join snapshot before beginning Security Visibility Foundation work and SPLUNK01 design.
+
+# Session 5 — SPLUNK01 Initial Deployment
+
+## Objective
+
+Deploy the initial SIEM/security monitoring server for the Security Visibility Foundation phase.
+
+SPLUNK01 will provide the platform for:
+
+- Splunk Enterprise
+- Windows event collection
+- Security monitoring
+- Detection engineering
+- Incident investigation
+
+---
+
+## Virtual Machine Deployment
+
+SPLUNK01 was created in VMware Workstation.
+
+Configuration:
+
+| Component | Value |
+|---|---|
+| Hostname | SPLUNK01 |
+| Operating System | Ubuntu Server 24.04 LTS |
+| CPU | 4 vCPU |
+| Memory | 6 GB RAM |
+| Storage | 80 GB |
+| Network | VMware NAT |
+| IP Address | 192.168.15.30 |
+| Gateway | 192.168.15.2 |
+| DNS Server | 192.168.15.10 |
+
+---
+
+## Ubuntu Installation
+
+Completed:
+
+- Ubuntu Server 24.04 LTS installed
+- OpenSSH server installed
+- Initial DHCP networking verified
+- Static network configuration applied
+
+---
+
+## Network Configuration
+
+SPLUNK01 initially received DHCP address `192.168.15.130`.
+
+Netplan was subsequently configured with the planned static address:
+
+`192.168.15.30/24`
+
+DNS was changed from the VMware-provided DNS service (`192.168.15.2`) to DC01 (`192.168.15.10`) so that SPLUNK01 uses the lab's Active Directory DNS infrastructure.
+
+---
+
+## Network Verification
+
+Verified:
+
+- Gateway connectivity to `192.168.15.2`
+- Connectivity to DC01 at `192.168.15.10`
+- DNS resolution of `dc01.homelab.local`
+- SSH remote administration using `192.168.15.30`
+
+### Result
+
+Network configuration: **PASS**
+
+---
+
+## Current Status
+
+SPLUNK01 is installed and network configuration is complete.
+
+Completed:
+
+- VMware VM created
+- Ubuntu Server 24.04 LTS installed
+- OpenSSH server installed
+- Static IP configured
+- Gateway connectivity verified
+- DC01 connectivity verified
+- Active Directory DNS resolution verified
+- SSH remote administration verified
+- Ubuntu system update started
+
+Pending:
+
+- Complete Ubuntu system updates
+- Verify SPLUNK01 OS baseline
+- Verify SSH after system updates
+- Create clean SPLUNK01 OS baseline snapshot
+- Install Splunk Enterprise
+- Configure Windows telemetry collection
+
+---
+
+## Next Steps
+
+- Complete SPLUNK01 OS verification
+- Create clean OS baseline snapshot
+- Install Splunk Enterprise
+- Begin Windows telemetry collection
