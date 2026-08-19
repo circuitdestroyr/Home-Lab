@@ -47,18 +47,18 @@ Separate infrastructure workloads and security monitoring workloads between the 
 
 ## Windows Laptop Responsibilities
 
-- VMware environment
-- Active Directory
-- Windows endpoints
-- Network appliances
-- Infrastructure servers
+- VMware virtualization host
+- DC01
+- CLIENT01
+- SPLUNK01
+- Other Windows/Linux lab VMs as required
 
 ## M2 Mac Responsibilities
 
-- Splunk
 - Security analysis tools
 - Documentation
 - Supporting security workloads
+- Juniper Switch and Firewall
 
 ## Reason
 
@@ -66,7 +66,7 @@ Separating infrastructure and monitoring mirrors real-world environments where e
 
 This approach also allows the lab to scale while respecting available hardware resources by distributing virtual machines across multiple physical hosts.
 
-The Windows laptop will prioritize Windows-based infrastructure workloads, while the M2 Mac will provide additional capacity for Linux-based security tooling and analysis platforms.
+The Windows laptop will host the primary enterprise infrastructure and centralized security visibility workloads. The M2 Mac will provide additional capacity for security analysis, Linux-based security tooling, and supporting workloads.
 
 ## Planned Distribution
 
@@ -76,6 +76,7 @@ Primary workloads:
 
 - DC01
 - CLIENT01
+- SPLUNK01
 - Future Windows Servers
 - Network appliance simulations
 
@@ -83,12 +84,9 @@ Primary workloads:
 
 Primary workloads:
 
-- SPLUNK01
 - KALI01
 - Future Linux-based security tools
 - Supporting analysis workloads
-
----
 
 # Decision 003 — Documentation Strategy
 
