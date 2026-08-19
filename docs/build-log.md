@@ -577,3 +577,254 @@ Pending:
 - Create clean OS baseline snapshot
 - Install Splunk Enterprise
 - Begin Windows telemetry collection
+
+# Session 6 — SPLUNK01 DNS Troubleshooting
+
+---
+
+## Objective
+
+Resolve and document an external DNS resolution issue encountered while preparing SPLUNK01 for Splunk Enterprise installation.
+
+SPLUNK01 was correctly configured to use DC01 (`192.168.15.10`) as its DNS server, but external Splunk domains were returning `SERVFAIL`.
+
+The goal was to identify the cause without bypassing the lab's Active Directory DNS architecture.
+
+---
+
+## Initial DNS Issue
+
+SPLUNK01 was unable to resolve:
+
+- `splunk.com`
+- `download.splunk.com`
+
+Both returned DNS `SERVFAIL` responses when queried through DC01.
+
+General Internet DNS resolution was still functioning for other domains.
+
+---
+
+## DNS Troubleshooting
+
+### Test 1 — Verify External DNS Resolution
+
+### Command
+
+`resolvectl query google.com`
+
+### Result
+
+PASS
+
+Google DNS records resolved successfully through the configured DNS path.
+
+---
+
+### Test 2 — Verify External DNS Resolution Through DC01
+
+### Command
+
+`nslookup facebook.com 192.168.15.10`
+
+### Result
+
+PASS
+
+Facebook successfully resolved through DC01.
+
+This confirmed that DC01 was providing functional external DNS resolution for some public domains.
+
+---
+
+### Test 3 — Test Splunk DNS Resolution Through DC01
+
+### Command
+
+`nslookup splunk.com 192.168.15.10`
+
+### Result
+
+FAIL
+
+The query returned:
+
+`SERVFAIL`
+
+The Splunk download hostname produced the same result.
+
+### Command
+
+`nslookup download.splunk.com 192.168.15.10`
+
+### Result
+
+FAIL
+
+The query returned:
+
+`SERVFAIL`
+
+---
+
+### Test 4 — Test Splunk DNS Resolution Through Public DNS
+
+### Command
+
+`nslookup splunk.com 8.8.8.8`
+
+### Result
+
+PASS
+
+`8.8.8.8` successfully resolved `splunk.com`.
+
+---
+
+### Test 5 — Test Splunk Download DNS Resolution
+
+### Command
+
+`nslookup download.splunk.com 8.8.8.8`
+
+### Result
+
+PASS
+
+The hostname successfully resolved to CloudFront addresses.
+
+---
+
+## DC01 DNS Investigation
+
+The DNS Server service was verified as running.
+
+### Command
+
+`Get-Service DNS`
+
+### Result
+
+PASS
+
+The DNS Server service was running on DC01.
+
+---
+
+### DNS Recursion
+
+### Command
+
+`Get-DnsServerRecursion`
+
+### Result
+
+PASS
+
+DNS recursion was enabled.
+
+---
+
+### Root Hint Verification
+
+### Command
+
+`Get-DnsServerRootHint`
+
+### Result
+
+PASS
+
+Standard DNS root server entries were present.
+
+Direct DNS queries to multiple root servers timed out, while DC01 was able to successfully query `8.8.8.8` directly.
+
+This indicated that the root-hint resolution path was not functioning correctly in the current lab network environment.
+
+---
+
+## DNS Forwarder Configuration
+
+To provide a reliable external DNS resolution path while maintaining DC01 as the DNS server for the lab, DNS forwarders were configured on DC01.
+
+### Command
+
+`Add-DnsServerForwarder -IPAddress 8.8.8.8,8.8.4.4`
+
+Configured forwarders:
+
+- `8.8.8.8`
+- `8.8.4.4`
+
+### Verification
+
+`Get-DnsServerForwarder`
+
+### Result
+
+PASS
+
+Configured forwarders were successfully displayed.
+
+---
+
+## Post-Configuration Verification
+
+### Command
+
+`Resolve-DnsName splunk.com`
+
+### Result
+
+PASS
+
+DC01 successfully resolved `splunk.com`.
+
+### Command
+
+`Resolve-DnsName download.splunk.com`
+
+### Result
+
+PASS
+
+DC01 successfully resolved `download.splunk.com` and its CloudFront destination.
+
+---
+
+## Architecture Result
+
+SPLUNK01 continues to use DC01 as its DNS server:
+
+`192.168.15.10`
+
+External DNS resolution is handled by DC01 using the configured DNS forwarders.
+
+No public DNS servers were configured directly on SPLUNK01.
+
+The Active Directory DNS architecture remains intact, with DC01 providing internal DNS resolution and handling external DNS resolution on behalf of lab systems.
+
+---
+
+## Result
+
+DNS troubleshooting: **COMPLETE**
+
+DC01 external DNS resolution: **PASS**
+
+SPLUNK01 DNS configuration: **PASS**
+
+Splunk download domain resolution through DC01: **PASS**
+
+Splunk Enterprise installation: **PENDING**
+
+---
+
+## Next Steps
+
+- Verify external DNS resolution from SPLUNK01
+- Download Splunk Enterprise
+- Install Splunk Enterprise
+- Start and verify Splunk services
+- Verify Splunk Web interface
+- Begin Windows telemetry collection
