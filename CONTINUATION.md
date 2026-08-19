@@ -1,221 +1,113 @@
 # Cyber Enterprise Lab — Continuation Statement
 
-The GitHub repository is the source of truth for this project:
+GitHub repository is the source of truth.
 
-https://github.com/circuitdestroyr/Home-Lab
-
-The local repository is now configured on the Windows laptop at:
-
-C:\Users\nickc\Home-Lab
-
-Git is installed and working.
-
-Current Git status:
-
-- Branch: main
-- Repository synchronized with origin/main
-- Working tree clean
-
-Latest commit:
-
-70e9a55 — Document CLIENT01 integration and lab status
-
-The latest documentation changes have been successfully pushed to GitHub.
-
----
-
-## Current Lab Phase
-
+Current project phase:
 Security Visibility Foundation
 
----
-
-## Current Environment
-
-### DC01
-
-Status:
-Operational
-
-Role:
-
-- Active Directory Domain Controller
-- DNS Server
-
-Domain:
-
-homelab.local
-
-IP:
-
-192.168.15.10
-
----
-
-### CLIENT01
-
-Status:
-
-Operational — Domain Joined
-
-Role:
-
-Standard Employee Workstation / User Endpoint
-
-Operating System:
-
-Windows 11 Pro
-
-Network:
-
-VMware NAT
-
-DNS:
-
-192.168.15.10
-
-Domain:
-
-homelab.local
-
----
-
-## CLIENT01 Verification Completed
-
-Verified:
-
-- Network connectivity to DC01
-- DNS configuration
-- Active Directory discovery
-- Domain membership
-- Domain authentication
-- Secure channel
-- Active Directory computer object
-
-Verification results documented in:
-
-docs/build-log.md
-
-Project status documented in:
-
-docs/project-status.md
-
----
-
-## Remaining CLIENT01 Task
-
-The only remaining CLIENT01 baseline verification is:
-
-- Verify that the post-domain-join VMware snapshot exists
-
-Important:
-
-Do not assume the snapshot exists.
-
-Physically verify it in VMware Workstation before marking the task complete.
-
-If the snapshot does not exist, create an appropriate post-domain-join baseline snapshot and document the change.
-
----
-
-## Next Major Phase
-
-After CLIENT01 baseline verification:
-
-### Security Visibility Foundation
-
-Begin planning:
-
-### SPLUNK01
-
-Role:
-
-SIEM / Security Monitoring Platform
-
-Planned responsibilities:
-
-- Windows event collection
-- Authentication monitoring
-- Security event analysis
-- Detection engineering
-- Investigation workflows
-- Alert creation and tuning
-
-Initial telemetry sources:
-
-- DC01
-- CLIENT01
-
-Future telemetry sources:
-
-- Linux systems
-- Firewall
-- Network infrastructure
-- Security testing systems
-
----
-
-## Future Systems
-
-SPLUNK01:
-Planned
-
-KALI01:
-Planned
-
-FG01:
-Planned
-
-JNPR01:
-Planned
-
----
-
-## Important Workflow
-
-Continue using:
-
-Design → Document → Build → Verify → Commit → Push → Verify
-
-GitHub remains the source of truth.
-
-Before making architecture changes:
-
-1. Review existing documentation.
-2. Respect existing architecture decisions.
-3. Avoid duplicate documentation.
-4. Make changes locally.
-5. Review the Git diff.
-6. Run git diff --check.
-7. Commit meaningful changes.
-8. Push to GitHub.
-9. Verify the repository is clean and synchronized.
-
----
-
-## Next Session Starting Point
-
-Start with:
-
-1. Open VMware Workstation.
-2. Locate CLIENT01.
-3. Inspect the existing snapshot list.
-4. Determine whether a post-domain-join baseline snapshot exists.
-5. If necessary, create the baseline snapshot.
-6. Update project-status.md and build-log.md only after physical verification.
-7. Commit and push the verified change.
-8. Begin SPLUNK01 architecture planning.
-
-Do not begin SPLUNK01 deployment until the CLIENT01 baseline state is verified.
-
 Current stopping point:
+SPLUNK01
 
-CLIENT01 is operational and domain joined.
+Completed foundation:
 
-Documentation is synchronized with GitHub.
+DC01
+- Windows Server 2022
+- Active Directory Domain Services
+- DNS
+- homelab.local
+- IP: 192.168.15.10
+- Operational and verified
 
-The repository is clean.
+CLIENT01
+- Windows 11 Pro
+- IP: 192.168.15.20
+- Joined homelab.local
+- Domain authentication verified
+- Secure channel verified
+- AD computer object verified
+- Post-domain-join snapshot still needs physical verification
 
-Next task:
+SPLUNK01
+- VMware VM on Windows laptop
+- Ubuntu Server 24.04 LTS
+- 4 vCPU
+- 6 GB RAM
+- 80 GB storage
+- OpenSSH installed
+- Static IP: 192.168.15.30
+- Gateway: 192.168.15.2
+- DNS: 192.168.15.10
+- VMware NAT
+- Gateway connectivity verified
+- DC01 connectivity verified
+- dc01.homelab.local resolution verified
+- SSH remote administration verified
+- Ubuntu system updates completed
+- Clean SPLUNK01 baseline VMware snapshot created
 
-Verify the CLIENT01 post-domain-join VMware snapshot.
+DNS troubleshooting completed:
+
+Problem:
+- SPLUNK01 could resolve some public domains
+- splunk.com returned SERVFAIL through DC01
+- download.splunk.com returned SERVFAIL through DC01
+- Direct queries to public DNS such as 8.8.8.8 worked
+- DC01 DNS service was running
+- DNS recursion was enabled
+- Root hints were present
+- Direct queries to multiple root servers timed out
+- DC01 successfully queried 8.8.8.8 directly
+
+Resolution:
+- Added DC01 DNS forwarders:
+  - 8.8.8.8
+  - 8.8.4.4
+- Verified DC01 successfully resolves:
+  - splunk.com
+  - download.splunk.com
+- SPLUNK01 continues to use DC01 (192.168.15.10) as its DNS server
+- No public DNS servers were configured directly on SPLUNK01
+
+Documentation completed:
+- docs/build-log.md updated with Session 6 DNS troubleshooting
+- docs/project-status.md updated with current SPLUNK01 state
+- docs/architecture/architecture-decisions.md reflects SPLUNK01 on Windows laptop
+
+Important architecture decision:
+Decision 002 is already correct.
+SPLUNK01 belongs on the Windows laptop.
+Do not move or rebuild SPLUNK01.
+
+Current SPLUNK01 status:
+- Splunk Enterprise NOT installed yet
+- Windows telemetry NOT configured yet
+- DNS troubleshooting is complete
+
+NEXT SESSION — START HERE:
+
+1. SSH into SPLUNK01 from the Windows laptop.
+2. Verify external DNS from SPLUNK01:
+
+   resolvectl query download.splunk.com
+
+3. If DNS resolves, retry the Splunk Enterprise download.
+4. Install the Splunk .deb package.
+5. Complete initial Splunk configuration.
+6. Start Splunk and verify the service.
+7. Verify Splunk Web interface.
+8. Confirm Splunk starts successfully.
+9. Document and verify the completed SPLUNK01 installation.
+10. Only then move into Windows telemetry collection.
+
+Do NOT repeat today's DNS troubleshooting unless the SPLUNK01 DNS test fails.
+
+Workflow:
+Design → Document → Build → Verify → Commit
+
+Last documentation checkpoint:
+- Build log Session 6 completed
+- Project status updated
+
+Suggested next commit after the Splunk installation is complete:
+
+Install and configure SPLUNK01
