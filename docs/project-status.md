@@ -8,7 +8,7 @@ Security Visibility Foundation
 
 ## Current Milestone
 
-Complete the CLIENT01 baseline and transition the lab into the Security Visibility Foundation phase.
+Complete the CLIENT01 baseline and continue building the Security Visibility Foundation with SPLUNK01.
 
 ### Completed
 
@@ -192,10 +192,14 @@ Current state:
 - Gateway connectivity verified
 - DC01 connectivity verified
 - Active Directory DNS resolution verified
-- Ubuntu system update in progress
+- Ubuntu system updates completed
+- SSH remote administration verified
+- Clean SPLUNK01 baseline snapshot created
+- DC01 external DNS resolution troubleshooting completed
+- DC01 DNS forwarders configured
+- External Splunk domain resolution through DC01 verified
 - Splunk Enterprise not yet installed
-- OS baseline verification pending
-- Baseline VMware snapshot pending
+- Windows telemetry collection not yet configured
 
 ---
 
