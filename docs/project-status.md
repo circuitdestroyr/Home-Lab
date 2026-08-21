@@ -166,7 +166,7 @@ homelab.local
 ## SPLUNK01 Foundation
 
 Status:
-In Progress — OS installed, network configured
+In Progress — Splunk Enterprise installed and operational
 
 SPLUNK01:
 
@@ -211,7 +211,12 @@ Current state:
 - DC01 external DNS resolution troubleshooting completed
 - DC01 DNS forwarders configured
 - External Splunk domain resolution through DC01 verified
-- Splunk Enterprise not yet installed
+- Splunk Enterprise 10.4.2 installed
+- Splunk administrator account created
+- Splunk Web interface verified on port 8000
+- Splunk management port verified on 8089
+- Splunk service verified running
+- Splunk configured for boot-start
 - Windows telemetry collection not yet configured
 
 ---
