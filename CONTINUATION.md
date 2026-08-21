@@ -1,4 +1,4 @@
-# Cyber Enterprise Lab — Continuation Statement
+Cyber Enterprise Lab — Continuation Statement
 
 GitHub repository is the source of truth.
 
@@ -6,9 +6,10 @@ Current project phase:
 Security Visibility Foundation
 
 Current stopping point:
-SPLUNK01
+SPLUNK01 installation complete and operational.
+Next major task is Windows telemetry collection from CLIENT01.
 
-Completed foundation:
+COMPLETED LAB FOUNDATION
 
 DC01
 - Windows Server 2022
@@ -25,89 +26,125 @@ CLIENT01
 - Domain authentication verified
 - Secure channel verified
 - AD computer object verified
-- Post-domain-join snapshot still needs physical verification
+- Post-domain-join VM snapshot still needs physical verification
 
 SPLUNK01
 - VMware VM on Windows laptop
-- Ubuntu Server 24.04 LTS
+- Ubuntu Server 24.04.4 LTS
 - 4 vCPU
 - 6 GB RAM
 - 80 GB storage
-- OpenSSH installed
 - Static IP: 192.168.15.30
 - Gateway: 192.168.15.2
 - DNS: 192.168.15.10
 - VMware NAT
+- OpenSSH installed
+- SSH remote administration verified
 - Gateway connectivity verified
 - DC01 connectivity verified
-- dc01.homelab.local resolution verified
-- SSH remote administration verified
-- Ubuntu system updates completed
-- Clean SPLUNK01 baseline VMware snapshot created
-
-DNS troubleshooting completed:
-
-Problem:
-- SPLUNK01 could resolve some public domains
-- splunk.com returned SERVFAIL through DC01
-- download.splunk.com returned SERVFAIL through DC01
-- Direct queries to public DNS such as 8.8.8.8 worked
-- DC01 DNS service was running
-- DNS recursion was enabled
-- Root hints were present
-- Direct queries to multiple root servers timed out
-- DC01 successfully queried 8.8.8.8 directly
-
-Resolution:
-- Added DC01 DNS forwarders:
+- DC01 DNS resolution verified
+- External DNS resolution through DC01 verified
+- DC01 DNS forwarders configured:
   - 8.8.8.8
   - 8.8.4.4
-- Verified DC01 successfully resolves:
-  - splunk.com
-  - download.splunk.com
-- SPLUNK01 continues to use DC01 (192.168.15.10) as its DNS server
-- No public DNS servers were configured directly on SPLUNK01
+- Clean SPLUNK01 baseline VMware snapshot created
 
-Documentation completed:
-- docs/build-log.md updated with Session 6 DNS troubleshooting
-- docs/project-status.md updated with current SPLUNK01 state
-- docs/architecture/architecture-decisions.md reflects SPLUNK01 on Windows laptop
+SPLUNK ENTERPRISE
 
-Important architecture decision:
-Decision 002 is already correct.
-SPLUNK01 belongs on the Windows laptop.
-Do not move or rebuild SPLUNK01.
+- Splunk Enterprise 10.4.2 installed
+- Debian package integrity verified using published SHA-512 checksum
+- Splunk administrator account created
+- Splunk Web verified
+- HTTP port 8000 verified
+- Management port 8089 verified
+- splunkd service verified running
+- Boot-start configured
+- `/etc/init.d/splunk` created
+- Splunk installation is operational
 
-Current SPLUNK01 status:
-- Splunk Enterprise NOT installed yet
-- Windows telemetry NOT configured yet
-- DNS troubleshooting is complete
+Installation verification:
 
-NEXT SESSION — START HERE:
+    sudo /opt/splunk/bin/splunk status
 
-1. SSH into SPLUNK01 from the Windows laptop.
-2. Verify external DNS from SPLUNK01:
+Result:
+    splunkd is running
 
-   resolvectl query download.splunk.com
+Boot-start configuration:
 
-3. If DNS resolves, retry the Splunk Enterprise download.
-4. Install the Splunk .deb package.
-5. Complete initial Splunk configuration.
-6. Start Splunk and verify the service.
-7. Verify Splunk Web interface.
-8. Confirm Splunk starts successfully.
-9. Document and verify the completed SPLUNK01 installation.
-10. Only then move into Windows telemetry collection.
+    sudo /opt/splunk/bin/splunk enable boot-start -user splunk
 
-Do NOT repeat today's DNS troubleshooting unless the SPLUNK01 DNS test fails.
+Result:
+    Init script installed at /etc/init.d/splunk.
+    Init script is configured to run at boot.
 
-Workflow:
+DOCUMENTATION / GIT
+
+Latest commit:
+    c81a710 Document Splunk Enterprise installation
+
+Commit pushed successfully to GitHub.
+
+Current Git state:
+    main is up to date with origin/main
+    working tree clean
+
+NEXT SESSION — START HERE
+
+1. Verify CLIENT01 is powered on.
+2. Verify CLIENT01 can communicate with DC01.
+3. Confirm the CLIENT01 post-domain-join snapshot exists.
+4. Decide and document the Windows telemetry architecture.
+5. Configure Windows Event Log collection from CLIENT01 into SPLUNK01.
+6. Verify events are arriving in Splunk.
+7. Perform basic searches against the Windows data.
+8. Document the telemetry configuration.
+9. Commit and push documentation to GitHub.
+10. After basic Windows Event Logs are working, move to Sysmon deployment.
+
+IMPORTANT ARCHITECTURE RULE
+
+Do not rebuild or move SPLUNK01.
+
+SPLUNK01 belongs on the Windows laptop and is already operational.
+
+NEXT MAJOR DATA FLOW
+
+CLIENT01
+    |
+    | Windows Event Logs
+    v
+SPLUNK01
+    |
+    v
+Splunk Search / Detection Engineering
+
+Do not begin detection engineering until basic telemetry ingestion is verified.
+
+WORKFLOW
+
 Design → Document → Build → Verify → Commit
 
-Last documentation checkpoint:
-- Build log Session 6 completed
-- Project status updated
+CURRENT BLOCKERS
 
-Suggested next commit after the Splunk installation is complete:
+None.
 
-Install and configure SPLUNK01
+KNOWN REMAINING VERIFICATION
+
+- Confirm CLIENT01 post-domain-join VM snapshot exists
+- Configure Windows telemetry collection
+- Verify Windows events are indexed by Splunk
+- Configure Sysmon after basic Windows telemetry is working
+
+SPLUNK TRIAL NOTE
+
+Splunk Enterprise was installed on 2026-08-21.
+
+The Enterprise Trial should be treated as time-limited and monitored during the project.
+
+Do not change the license configuration now.
+
+END STATE FOR TONIGHT
+
+SPLUNK01 is installed, running, accessible through Splunk Web, configured for boot-start, and documented in GitHub.
+
+The next session should begin with CLIENT01 → SPLUNK01 Windows telemetry.
