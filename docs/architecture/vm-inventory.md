@@ -26,8 +26,45 @@ This document tracks all virtual machines in the Cyber Enterprise Lab, including
 
 | Hostname | Purpose | Operating System | IP Address | Status |
 |---|---|---|---|---|
-| SPLUNK01 | SIEM / Log Analysis Platform | Linux | TBD | Planned |
+| SPLUNK01 | SIEM / Log Analysis Platform | Ubuntu Server 24.04 LTS | 192.168.15.30 | Operational - Base System |
 | KALI01 | Security Testing Workstation | Kali Linux | TBD | Planned |
+
+### SPLUNK01
+
+Host Platform:
+
+- Windows laptop
+- VMware virtualization
+
+Resources:
+
+- 4 CPU cores
+- 6 GB RAM
+- 80 GB storage
+
+Network:
+
+- VMware NAT
+- Static IP: 192.168.15.30
+- Gateway: 192.168.15.2
+- DNS: 192.168.15.10 (DC01)
+
+Current Services:
+
+- OpenSSH
+
+Current Status:
+
+- Ubuntu Server installed
+- Static networking configured
+- Gateway connectivity verified
+- DC01 connectivity verified
+- Internal DNS resolution verified
+- External DNS resolution through DC01 verified
+- SSH remote administration verified
+- System updates completed
+- Clean baseline VMware snapshot created
+- Splunk Enterprise installation pending
 
 ---
 

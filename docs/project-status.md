@@ -8,7 +8,7 @@ Security Visibility Foundation
 
 ## Current Milestone
 
-Complete the CLIENT01 baseline and continue building the Security Visibility Foundation with SPLUNK01.
+Build the SPLUNK01 security monitoring foundation and prepare the lab for Windows telemetry collection.
 
 ### Completed
 
@@ -19,10 +19,23 @@ Complete the CLIENT01 baseline and continue building the Security Visibility Fou
 - Domain authentication verified
 - Secure channel verified
 - CLIENT01 computer object verified in Active Directory
+- SPLUNK01 VMware VM deployed
+- Ubuntu Server 24.04 LTS installed
+- SPLUNK01 static networking configured
+- SPLUNK01 gateway connectivity verified
+- SPLUNK01 connectivity to DC01 verified
+- SPLUNK01 internal DNS resolution verified
+- SPLUNK01 external DNS resolution through DC01 verified
+- SSH remote administration verified
+- SPLUNK01 system updates completed
+- Clean SPLUNK01 baseline VMware snapshot created
 
 ### Remaining Verification
 
-- Confirm post-domain-join VM snapshot exists
+- Confirm post-domain-join CLIENT01 VM snapshot exists
+- Install Splunk Enterprise on SPLUNK01
+- Verify Splunk service and web interface
+- Configure Windows telemetry collection
 
 ---
 
@@ -216,13 +229,19 @@ Planned:
 
 ## Security Operations
 
+Current:
+
+- SPLUNK01 base system deployed
+- Splunk Enterprise installation pending
+
 Planned:
 
-- Splunk Enterprise deployment
 - Windows event collection
 - Sysmon deployment
 - Linux log collection
 - Firewall log collection
+- Detection engineering
+- Alert creation and tuning
 
 ---
 
@@ -270,4 +289,4 @@ None
 
 ## Last Updated
 
-2026-08-18
+2026-08-21

@@ -138,3 +138,42 @@ Use consistent enterprise-style naming conventions.
 ## Reason
 
 Consistent naming makes the environment easier to manage and document.
+
+---
+
+# Decision 005 — SPLUNK01 Host Placement
+
+## Date
+
+2026-08-21
+
+## Decision
+
+Deploy SPLUNK01 as a VMware virtual machine on the Windows laptop rather than the M2 Mac.
+
+## Reason
+
+The Windows laptop already provides the active VMware infrastructure environment for the lab. Deploying SPLUNK01 there allows the monitoring platform to communicate directly with DC01 and CLIENT01 on the existing VMware network while keeping the lab operationally simple.
+
+The decision also reflects the actual available hardware and the current lab implementation.
+
+## Implementation
+
+SPLUNK01 is deployed on the Windows laptop with:
+
+- VMware virtualization
+- Ubuntu Server 24.04 LTS
+- 4 vCPU
+- 6 GB RAM
+- 80 GB storage
+- Static IP: 192.168.15.30
+
+SPLUNK01 uses DC01 as its DNS server.
+
+## Impact
+
+The original host-distribution plan in Decision 002 is superseded for SPLUNK01.
+
+The M2 Mac remains available for future security analysis tools, Linux security workloads, and supporting security tooling.
+
+SPLUNK01 should not be moved or rebuilt solely to conform to the original planned distribution.
