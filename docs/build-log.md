@@ -829,9 +829,9 @@ Splunk Enterprise installation: **PENDING**
 - Verify Splunk Web interface
 - Begin Windows telemetry collection
 
-## Session 7 — CLIENT01 Telemetry Preparation
+# Session 7 — CLIENT01 Telemetry Preparation
 
-### CLIENT01 Domain Verification
+## CLIENT01 Domain Verification
 
 Verified CLIENT01 connectivity and domain functionality.
 
@@ -849,7 +849,7 @@ Tests performed:
   - Successfully located `DC01.homelab.local`
   - Address: `192.168.15.10`
 
-### CLIENT01 → SPLUNK01 Connectivity
+## CLIENT01 → SPLUNK01 Connectivity
 
 Verified connectivity from CLIENT01 to SPLUNK01:
 
@@ -858,7 +858,7 @@ Verified connectivity from CLIENT01 to SPLUNK01:
 - TCP `8089`: successful
 - TCP `9997`: successful
 
-### SPLUNK01 Receiving Configuration
+## SPLUNK01 Receiving Configuration
 
 Splunk Enterprise on SPLUNK01 was configured with receiving enabled on TCP port `9997`.
 
@@ -866,7 +866,7 @@ CLIENT01 successfully established TCP connectivity to:
 
 `192.168.15.30:9997`
 
-### Splunk Universal Forwarder Installation
+## Splunk Universal Forwarder Installation
 
 Installed Splunk Universal Forwarder `10.4.2` on CLIENT01.
 
@@ -887,16 +887,15 @@ Selected configuration:
 - Receiving Indexer: `192.168.15.30:9997`
 - UF administrator username: `ufadmin`
 
-### Universal Forwarder Verification
+## Universal Forwarder Verification
 
 Verified the Windows service on CLIENT01:
 
 ```powershell
-Get-Service SplunkForwarder
-```
-Result:
+Get-Service Result:
 
 SplunkForwarder — Running
+```
 
 Current Stopping Point
 
@@ -904,7 +903,6 @@ Universal Forwarder installation is complete and the service is running.
 
 Windows Event Log ingestion into Splunk has not yet been verified.
 
-Next step:
+# Next Step
 
 Verify Universal Forwarder configuration and confirm that CLIENT01 Windows Event Logs are being indexed by SPLUNK01.
-
