@@ -828,3 +828,83 @@ Splunk Enterprise installation: **PENDING**
 - Start and verify Splunk services
 - Verify Splunk Web interface
 - Begin Windows telemetry collection
+
+## Session 7 — CLIENT01 Telemetry Preparation
+
+### CLIENT01 Domain Verification
+
+Verified CLIENT01 connectivity and domain functionality.
+
+Tests performed:
+
+- `nslookup dc01.homelab.local`
+  - Resolved to `192.168.15.10`
+- `nslookup -type=SRV _ldap._tcp.dc._msdcs.homelab.local`
+  - LDAP SRV record resolved successfully
+  - Target: `dc01.homelab.local`
+  - Port: `389`
+- `Test-ComputerSecureChannel`
+  - Result: `True`
+- `nltest /dsgetdc:homelab.local`
+  - Successfully located `DC01.homelab.local`
+  - Address: `192.168.15.10`
+
+### CLIENT01 → SPLUNK01 Connectivity
+
+Verified connectivity from CLIENT01 to SPLUNK01:
+
+- SPLUNK01 IP: `192.168.15.30`
+- ICMP ping: successful, 0% packet loss
+- TCP `8089`: successful
+- TCP `9997`: successful
+
+### SPLUNK01 Receiving Configuration
+
+Splunk Enterprise on SPLUNK01 was configured with receiving enabled on TCP port `9997`.
+
+CLIENT01 successfully established TCP connectivity to:
+
+`192.168.15.30:9997`
+
+### Splunk Universal Forwarder Installation
+
+Installed Splunk Universal Forwarder `10.4.2` on CLIENT01.
+
+Selected configuration:
+
+- Deployment type: On-premises
+- Installation path: Default
+- Service account: Local System
+- SeBackupPrivilege: enabled
+- SeSecurityPrivilege: enabled
+- Performance Monitor Users: enabled
+- Windows Event Logs:
+  - Application
+  - Security
+  - System
+- Performance Monitor collection: not enabled
+- Deployment Server: not configured
+- Receiving Indexer: `192.168.15.30:9997`
+- UF administrator username: `ufadmin`
+
+### Universal Forwarder Verification
+
+Verified the Windows service on CLIENT01:
+
+```powershell
+Get-Service SplunkForwarder
+```
+Result:
+
+SplunkForwarder — Running
+
+Current Stopping Point
+
+Universal Forwarder installation is complete and the service is running.
+
+Windows Event Log ingestion into Splunk has not yet been verified.
+
+Next step:
+
+Verify Universal Forwarder configuration and confirm that CLIENT01 Windows Event Logs are being indexed by SPLUNK01.
+
