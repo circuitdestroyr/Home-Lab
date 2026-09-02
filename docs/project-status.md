@@ -8,7 +8,7 @@ Security Visibility Foundation
 
 ## Current Milestone
 
-Build the SPLUNK01 security monitoring foundation and prepare the lab for Windows telemetry collection.
+Build the SPLUNK01 security monitoring foundation and establish the initial Windows telemetry pipeline.
 
 ### Completed
 
@@ -29,13 +29,29 @@ Build the SPLUNK01 security monitoring foundation and prepare the lab for Window
 - SSH remote administration verified
 - SPLUNK01 system updates completed
 - Clean SPLUNK01 baseline VMware snapshot created
+- DC01 DNS forwarders configured
+- Splunk Enterprise 10.4.2 installed on SPLUNK01
+- Splunk administrator account created
+- Splunk Web interface verified on port 8000
+- Splunk management port verified on 8089
+- Splunk service verified running
+- Splunk configured for boot-start
+- Splunk receiving configured on TCP port 9997
+- CLIENT01 connectivity to SPLUNK01 TCP port 9997 verified
+- Splunk Universal Forwarder 10.4.2 installed on CLIENT01
+- Universal Forwarder configured to send data to SPLUNK01
+- Application, Security, and System Windows Event Logs selected for collection
+- Universal Forwarder Windows service verified running
 
 ### Remaining Verification
 
 - Confirm post-domain-join CLIENT01 VM snapshot exists
-- Install Splunk Enterprise on SPLUNK01
-- Verify Splunk service and web interface
-- Configure Windows telemetry collection
+- Verify CLIENT01 Windows Event Logs are forwarded to SPLUNK01
+- Verify Windows events are indexed by Splunk
+- Perform basic searches against CLIENT01 telemetry
+- Document the Windows telemetry pipeline
+- Deploy Sysmon
+- Verify Sysmon events in Splunk
 
 ---
 
@@ -54,6 +70,8 @@ Completed:
 - SYSVOL verified
 - NETLOGON verified
 - Domain Controller health checks completed
+- External DNS forwarders configured
+- External DNS resolution verified
 
 ---
 
@@ -76,7 +94,9 @@ Status: Operational — Domain Joined
 **Network:**
 
 - VMware NAT
-- Same VMware network as DC01
+- IP address: `192.168.15.20`
+- DNS server: `192.168.15.10`
+- Same VMware network as DC01 and SPLUNK01
 
 ### Purpose
 
@@ -102,6 +122,14 @@ Provide a realistic enterprise endpoint for:
 - Domain authentication verified
 - Secure channel verified
 - CLIENT01 computer object confirmed in Active Directory
+- Connectivity to SPLUNK01 verified
+- TCP connectivity to SPLUNK01 port 8089 verified
+- TCP connectivity to SPLUNK01 port 9997 verified
+- Splunk Universal Forwarder 10.4.2 installed
+- Universal Forwarder configured for on-premises Splunk Enterprise
+- Receiving indexer configured as `192.168.15.30:9997`
+- Application, Security, and System Windows Event Logs selected
+- Universal Forwarder service verified running
 
 ### CLIENT01 Verification Results
 
@@ -109,95 +137,124 @@ Provide a realistic enterprise endpoint for:
 
 Command:
 
-```powershell
-systeminfo | findstr /B /C:"Domain"
-```
+`systeminfo | findstr /B /C:"Domain"`
 
 Result:
 
-```text
-Domain: homelab.local
-```
+`Domain: homelab.local`
 
 **Authentication**
 
 Command:
 
-```powershell
-whoami
-```
+`whoami`
 
 Result:
 
-```text
-homelab\administrator
-```
+`homelab\administrator`
 
 **Secure Channel**
 
 Command:
 
-```powershell
-Test-ComputerSecureChannel
-```
+`Test-ComputerSecureChannel`
 
 Result:
 
-```text
-True
-```
+`True`
 
 **Active Directory Verification**
 
 CLIENT01 computer object confirmed in:
 
-```text
-homelab.local
-└── Computers
-    └── CLIENT01
-```
+`homelab.local`
+`└── Computers`
+`    └── CLIENT01`
+
+**Domain Controller Discovery**
+
+Command:
+
+`nltest /dsgetdc:homelab.local`
+
+Result:
+
+DC01 successfully located at `192.168.15.10`.
+
+**DNS Verification**
+
+Command:
+
+`nslookup dc01.homelab.local`
+
+Result:
+
+`dc01.homelab.local` resolved to `192.168.15.10`.
+
+**Active Directory SRV Verification**
+
+Command:
+
+`nslookup -type=SRV _ldap._tcp.dc._msdcs.homelab.local`
+
+Result:
+
+LDAP service record successfully resolved to `dc01.homelab.local` on port `389`.
+
+### Windows Telemetry Status
+
+Universal Forwarder installation is complete and the service is running.
+
+Current telemetry configuration:
+
+- Application Event Log collection selected
+- Security Event Log collection selected
+- System Event Log collection selected
+- Receiving indexer configured as `192.168.15.30:9997`
+
+Current verification state:
+
+- Network connectivity to SPLUNK01: Verified
+- TCP 9997 connectivity: Verified
+- Universal Forwarder service: Running
+- Actual event ingestion into Splunk: Not yet verified
 
 ### Remaining Verification
 
 - Confirm post-domain-join VM snapshot exists
+- Verify Windows Event Logs are arriving in Splunk
+- Perform basic searches against CLIENT01 events
+- Deploy Sysmon after basic Windows telemetry is confirmed
 
 ---
 
 ## SPLUNK01 Foundation
 
 Status:
-In Progress — Splunk Enterprise installed and operational
 
-SPLUNK01:
+Operational — Splunk Enterprise installed and running
 
-Hostname:
-SPLUNK01
+**Hostname:** SPLUNK01
 
-Operating System:
-Ubuntu Server 24.04 LTS
+**Operating System:** Ubuntu Server 24.04 LTS
 
-Role:
-SIEM / Security Monitoring
+**Role:** SIEM / Security Monitoring
 
-IP:
-192.168.15.30
+**IP:** `192.168.15.30`
 
-Gateway:
-192.168.15.2
+**Gateway:** `192.168.15.2`
 
-DNS:
-192.168.15.10
+**DNS:** `192.168.15.10`
 
-Network:
-VMware NAT
+**Network:** VMware NAT
 
-Resources:
+**Resources:**
 
 - 4 vCPU
 - 6 GB RAM
 - 80 GB storage
 
-Current state:
+### Current State
 
 - Ubuntu Server installed
 - OpenSSH server installed
@@ -214,10 +271,25 @@ Current state:
 - Splunk Enterprise 10.4.2 installed
 - Splunk administrator account created
 - Splunk Web interface verified on port 8000
-- Splunk management port verified on 8089
+- Splunk management port verified on port 8089
 - Splunk service verified running
 - Splunk configured for boot-start
-- Windows telemetry collection not yet configured
+- Splunk receiving enabled on TCP port 9997
+- CLIENT01 TCP connectivity to port 9997 verified
+
+### Splunk Telemetry Status
+
+SPLUNK01 is ready to receive forwarded data from CLIENT01.
+
+Current data flow:
+
+CLIENT01
+→ Splunk Universal Forwarder
+→ TCP 9997
+→ SPLUNK01
+→ Splunk Enterprise
+
+Actual Windows Event Log ingestion remains pending verification.
 
 ---
 
@@ -237,16 +309,22 @@ Planned:
 Current:
 
 - SPLUNK01 base system deployed
-- Splunk Enterprise installation pending
+- Splunk Enterprise 10.4.2 installed and operational
+- Splunk receiving configured on TCP 9997
+- CLIENT01 Universal Forwarder installed and running
+- Windows Event Log ingestion pending verification
 
 Planned:
 
-- Windows event collection
+- Verify Windows event collection
+- Perform basic Splunk searches
+- Document telemetry pipeline
 - Sysmon deployment
 - Linux log collection
 - Firewall log collection
 - Detection engineering
 - Alert creation and tuning
+- Incident response investigations
 
 ---
 
@@ -278,8 +356,8 @@ Planned:
 | System | Purpose | Status |
 |---|---|---|
 | DC01 | Active Directory Domain Controller / DNS | Operational |
-| CLIENT01 | Windows Domain Workstation | Operational — Domain Joined |
-| SPLUNK01 | Security Monitoring Platform | In Progress |
+| CLIENT01 | Windows Domain Workstation / Telemetry Source | Operational — UF Running |
+| SPLUNK01 | Security Monitoring Platform | Operational — Splunk Running |
 | KALI01 | Attack Simulation Workstation | Planned |
 | FG01 | Firewall | Planned |
 | JNPR01 | Network Infrastructure | Planned |
@@ -292,6 +370,19 @@ None
 
 ---
 
+## Next Session
+
+1. Verify Universal Forwarder configuration on CLIENT01.
+2. Verify Windows Event Logs are being forwarded.
+3. Search Splunk for CLIENT01 events.
+4. Confirm successful Windows telemetry ingestion.
+5. Document the verified telemetry pipeline.
+6. Commit and push documentation.
+7. Deploy Sysmon.
+8. Verify Sysmon telemetry.
+
+---
+
 ## Last Updated
 
-2026-08-21
+2026-09-02
