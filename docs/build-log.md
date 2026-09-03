@@ -906,3 +906,59 @@ Windows Event Log ingestion into Splunk has not yet been verified.
 # Next Step
 
 Verify Universal Forwarder configuration and confirm that CLIENT01 Windows Event Logs are being indexed by SPLUNK01.
+
+## Session 8 — Windows Telemetry Pipeline Verification
+
+### Objective
+
+Verify that Windows Event Logs generated on CLIENT01 are successfully forwarded by the Splunk Universal Forwarder to SPLUNK01 and indexed by Splunk Enterprise.
+
+### Verification Performed
+
+CLIENT01:
+
+- `SplunkForwarder` Windows service verified as Running.
+- Universal Forwarder forwarding destination verified as `192.168.15.30:9997`.
+- Forwarding initially showed as inactive because SPLUNK01 was powered off.
+- After SPLUNK01 was powered on and `splunkd` was confirmed running, the forwarder reported `192.168.15.30:9997` as an active forward.
+- SPLUNK01 confirmed listening on TCP 9997.
+- A controlled Application event was generated using the `CyberLab` source.
+- Event ID: `1000`.
+- Test message: `Cyber Enterprise Lab telemetry test - CLIENT01`.
+- The event was verified locally on CLIENT01.
+
+### Splunk Verification
+
+The test event was successfully located in Splunk.
+
+Verified event metadata:
+
+- Host: `CLIENT01`
+- Source: `WinEventLog:Application`
+- Sourcetype: `WinEventLog:Application`
+- Index: `main`
+
+Additional telemetry verification confirmed events from all three configured Windows Event Log channels:
+
+| Windows Log | Source | Count Observed |
+|---|---|---:|
+| Application | `WinEventLog:Application` | 18 |
+| Security | `WinEventLog:Security` | 397 |
+| System | `WinEventLog:System` | 19 |
+
+### Result
+
+The basic Windows telemetry pipeline is VERIFIED:
+
+`CLIENT01 → Windows Event Logs → Splunk Universal Forwarder → TCP 9997 → SPLUNK01 → Splunk main index → Search`
+
+### Next Session
+
+- Verify/create CLIENT01 pre-Sysmon VMware snapshot.
+- Deploy Microsoft Sysmon.
+- Configure Sysmon security telemetry.
+- Verify Sysmon locally.
+- Verify Sysmon events in Splunk.
+- Document and commit the Sysmon telemetry milestone.
+
+Detection engineering has not yet started.
