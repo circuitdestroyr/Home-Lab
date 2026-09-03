@@ -43,15 +43,13 @@ Build the SPLUNK01 security monitoring foundation and establish the initial Wind
 - Application, Security, and System Windows Event Logs selected for collection
 - Universal Forwarder Windows service verified running
 
-### Remaining Verification
+### Remaining Work
 
 - Confirm post-domain-join CLIENT01 VM snapshot exists
-- Verify CLIENT01 Windows Event Logs are forwarded to SPLUNK01
-- Verify Windows events are indexed by Splunk
-- Perform basic searches against CLIENT01 telemetry
-- Document the Windows telemetry pipeline
 - Deploy Sysmon
 - Verify Sysmon events in Splunk
+- Document Sysmon telemetry
+- Begin detection engineering
 
 ---
 
@@ -212,19 +210,46 @@ Current telemetry configuration:
 - System Event Log collection selected
 - Receiving indexer configured as `192.168.15.30:9997`
 
-Current verification state:
+### Verification Results
 
 - Network connectivity to SPLUNK01: Verified
 - TCP 9997 connectivity: Verified
 - Universal Forwarder service: Running
-- Actual event ingestion into Splunk: Not yet verified
+- Active forward to `192.168.15.30:9997`: Verified
+- Application Event Log ingestion: Verified
+- Security Event Log ingestion: Verified
+- System Event Log ingestion: Verified
+- Splunk indexing: Verified
+- CLIENT01 events searchable in Splunk: Verified
 
-### Remaining Verification
+Verified Splunk telemetry:
+
+| Windows Log | Source | Events Observed |
+|---|---|---:|
+| Application | `WinEventLog:Application` | 18 |
+| Security | `WinEventLog:Security` | 397 |
+| System | `WinEventLog:System` | 19 |
+
+Verified test event:
+
+- Host: `CLIENT01`
+- Source: `WinEventLog:Application`
+- Sourcetype: `WinEventLog:Application`
+- Index: `main`
+- Event source: `CyberLab`
+- Event ID: `1000`
+
+### Telemetry Pipeline
+
+`CLIENT01 → Windows Event Logs → Splunk Universal Forwarder → TCP 9997 → SPLUNK01 → main index → Splunk Search`
+
+**Windows Event Log telemetry is VERIFIED.**
+
+### Remaining Work
 
 - Confirm post-domain-join VM snapshot exists
-- Verify Windows Event Logs are arriving in Splunk
-- Perform basic searches against CLIENT01 events
-- Deploy Sysmon after basic Windows telemetry is confirmed
+- Deploy Sysmon after the verified Windows telemetry baseline
+- Verify Sysmon telemetry in Splunk
 
 ---
 
@@ -279,17 +304,19 @@ Operational — Splunk Enterprise installed and running
 
 ### Splunk Telemetry Status
 
-SPLUNK01 is ready to receive forwarded data from CLIENT01.
+SPLUNK01 is receiving forwarded Windows Event Logs from CLIENT01.
 
-Current data flow:
+Verified data flow:
 
 CLIENT01
 → Splunk Universal Forwarder
 → TCP 9997
 → SPLUNK01
 → Splunk Enterprise
+→ `main` index
+→ Splunk Search
 
-Actual Windows Event Log ingestion remains pending verification.
+Application, Security, and System Windows Event Logs have been verified as searchable in Splunk.
 
 ---
 
@@ -312,14 +339,15 @@ Current:
 - Splunk Enterprise 10.4.2 installed and operational
 - Splunk receiving configured on TCP 9997
 - CLIENT01 Universal Forwarder installed and running
-- Windows Event Log ingestion pending verification
+- Application, Security, and System Windows Event Log ingestion verified
+- CLIENT01 telemetry searchable in Splunk `main` index
+- Basic Splunk searches performed
+- Windows telemetry pipeline documented
 
 Planned:
 
-- Verify Windows event collection
-- Perform basic Splunk searches
-- Document telemetry pipeline
 - Sysmon deployment
+- Sysmon telemetry verification
 - Linux log collection
 - Firewall log collection
 - Detection engineering
@@ -372,17 +400,17 @@ None
 
 ## Next Session
 
-1. Verify Universal Forwarder configuration on CLIENT01.
-2. Verify Windows Event Logs are being forwarded.
-3. Search Splunk for CLIENT01 events.
-4. Confirm successful Windows telemetry ingestion.
-5. Document the verified telemetry pipeline.
-6. Commit and push documentation.
-7. Deploy Sysmon.
-8. Verify Sysmon telemetry.
+1. Verify/create the CLIENT01 pre-Sysmon VMware snapshot.
+2. Deploy Sysmon on CLIENT01.
+3. Configure Sysmon security telemetry.
+4. Verify the Sysmon service and local event generation.
+5. Verify Sysmon events in Splunk.
+6. Document the Sysmon telemetry pipeline.
+7. Commit and push documentation.
+8. Begin detection engineering.
 
 ---
 
 ## Last Updated
 
-2026-09-02
+2026-09-03
