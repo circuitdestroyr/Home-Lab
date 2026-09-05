@@ -255,9 +255,7 @@ Verified test event:
 
 ## SPLUNK01 Foundation
 
-Status:
-
-Operational — Splunk Enterprise installed and running
+Status: Operational — Splunk Enterprise installed and running
 
 **Hostname:** SPLUNK01
 
@@ -413,4 +411,4 @@ None
 
 ## Last Updated
 
-2026-09-03
+2026-09-05
